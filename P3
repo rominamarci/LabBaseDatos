@@ -1,0 +1,178 @@
+USE [Farmacia]
+GO
+/****** Object:  Table [dbo].[Asistencia]    Script Date: 07/10/2017 11:34:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Asistencia]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Asistencia](
+	[ID_Asistencia] [uniqueidentifier] NOT NULL,
+	[ID_Empleados] [uniqueidentifier] NOT NULL,
+	[Hora_Entrada] [time](7) NOT NULL,
+	[Hora_Salida] [time](7) NOT NULL,
+	[Fecha] [date] NOT NULL,
+ CONSTRAINT [PK_Asistencia] PRIMARY KEY CLUSTERED 
+(
+	[ID_Asistencia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Empleados]    Script Date: 07/10/2017 11:34:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Empleados]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Empleados](
+	[ID_Empleados] [uniqueidentifier] NOT NULL,
+	[ID_Nomina] [uniqueidentifier] NOT NULL,
+	[ID_Sucursal] [uniqueidentifier] NOT NULL,
+	[ID_Puesto] [uniqueidentifier] NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Telefono] [int] NOT NULL,
+ CONSTRAINT [PK_Empleados] PRIMARY KEY CLUSTERED 
+(
+	[ID_Empleados] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Inventario]    Script Date: 07/10/2017 11:34:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Inventario]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Inventario](
+	[ID_Producto] [uniqueidentifier] NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[ID_Sucursales] [uniqueidentifier] NOT NULL,
+	[ID_Inventario] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_Inventario] PRIMARY KEY CLUSTERED 
+(
+	[ID_Inventario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Nómina]    Script Date: 07/10/2017 11:34:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Nómina]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Nómina](
+	[ID_Nómina] [uniqueidentifier] NOT NULL,
+	[ID_Asistencia] [uniqueidentifier] NOT NULL,
+	[ID_Empleado] [uniqueidentifier] NOT NULL,
+	[Periodo_Inicio] [date] NOT NULL,
+	[Sueldo] [money] NOT NULL,
+ CONSTRAINT [PK_Nómina] PRIMARY KEY CLUSTERED 
+(
+	[ID_Nómina] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Producto]    Script Date: 07/10/2017 11:34:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Producto]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Producto](
+	[ID_Producto] [uniqueidentifier] NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Precio] [money] NOT NULL,
+	[Tipo] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Producto] PRIMARY KEY CLUSTERED 
+(
+	[ID_Producto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Sucursales]    Script Date: 07/10/2017 11:34:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Sucursales]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Sucursales](
+	[ID_Sucursales] [uniqueidentifier] NOT NULL,
+	[ID_Producto] [uniqueidentifier] NOT NULL,
+	[ID_Empleados] [uniqueidentifier] NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Direccion] [varchar](50) NOT NULL,
+	[Telefono] [int] NOT NULL,
+	[Responsable] [varchar](50) NOT NULL,
+	[ID_Proveedor] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_Sucursales] PRIMARY KEY CLUSTERED 
+(
+	[ID_Sucursales] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_EmpleadosA]') AND parent_object_id = OBJECT_ID(N'[dbo].[Asistencia]'))
+ALTER TABLE [dbo].[Asistencia]  WITH CHECK ADD  CONSTRAINT [FK_ID_EmpleadosA] FOREIGN KEY([ID_Empleados])
+REFERENCES [dbo].[Empleados] ([ID_Empleados])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_EmpleadosA]') AND parent_object_id = OBJECT_ID(N'[dbo].[Asistencia]'))
+ALTER TABLE [dbo].[Asistencia] CHECK CONSTRAINT [FK_ID_EmpleadosA]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Producto]') AND parent_object_id = OBJECT_ID(N'[dbo].[Inventario]'))
+ALTER TABLE [dbo].[Inventario]  WITH CHECK ADD  CONSTRAINT [FK_ID_Producto] FOREIGN KEY([ID_Producto])
+REFERENCES [dbo].[Producto] ([ID_Producto])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Producto]') AND parent_object_id = OBJECT_ID(N'[dbo].[Inventario]'))
+ALTER TABLE [dbo].[Inventario] CHECK CONSTRAINT [FK_ID_Producto]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Sucursales]') AND parent_object_id = OBJECT_ID(N'[dbo].[Inventario]'))
+ALTER TABLE [dbo].[Inventario]  WITH CHECK ADD  CONSTRAINT [FK_ID_Sucursales] FOREIGN KEY([ID_Sucursales])
+REFERENCES [dbo].[Sucursales] ([ID_Sucursales])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Sucursales]') AND parent_object_id = OBJECT_ID(N'[dbo].[Inventario]'))
+ALTER TABLE [dbo].[Inventario] CHECK CONSTRAINT [FK_ID_Sucursales]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Asistencia]') AND parent_object_id = OBJECT_ID(N'[dbo].[Nómina]'))
+ALTER TABLE [dbo].[Nómina]  WITH CHECK ADD  CONSTRAINT [FK_ID_Asistencia] FOREIGN KEY([ID_Asistencia])
+REFERENCES [dbo].[Asistencia] ([ID_Asistencia])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Asistencia]') AND parent_object_id = OBJECT_ID(N'[dbo].[Nómina]'))
+ALTER TABLE [dbo].[Nómina] CHECK CONSTRAINT [FK_ID_Asistencia]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Empleado]') AND parent_object_id = OBJECT_ID(N'[dbo].[Nómina]'))
+ALTER TABLE [dbo].[Nómina]  WITH CHECK ADD  CONSTRAINT [FK_ID_Empleado] FOREIGN KEY([ID_Empleado])
+REFERENCES [dbo].[Empleados] ([ID_Empleados])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Empleado]') AND parent_object_id = OBJECT_ID(N'[dbo].[Nómina]'))
+ALTER TABLE [dbo].[Nómina] CHECK CONSTRAINT [FK_ID_Empleado]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Empleados]') AND parent_object_id = OBJECT_ID(N'[dbo].[Sucursales]'))
+ALTER TABLE [dbo].[Sucursales]  WITH CHECK ADD  CONSTRAINT [FK_ID_Empleados] FOREIGN KEY([ID_Empleados])
+REFERENCES [dbo].[Empleados] ([ID_Empleados])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ID_Empleados]') AND parent_object_id = OBJECT_ID(N'[dbo].[Sucursales]'))
+ALTER TABLE [dbo].[Sucursales] CHECK CONSTRAINT [FK_ID_Empleados]
+GO
