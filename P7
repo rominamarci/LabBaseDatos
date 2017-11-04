@@ -1,0 +1,80 @@
+create procedure DP
+(@valor money)
+as
+begin
+	select * from dbo.Detalle_Producto
+	where PTotal>@valor
+end
+exec DP 20
+
+create procedure IP
+(@valor1 int)
+as
+begin
+	select * from dbo.Inventario_Producto
+	where Cantidad>@valor1
+end
+exec IP 100
+
+create procedure PDO
+(@valor2 varchar(50))
+as
+begin
+	select * from dbo.Producto_Detalle_Orden
+	where Producto like @valor2
+end
+exec PDO 'diclofenaco'
+
+create procedure PS
+(@valor3 varchar(100))
+as
+begin
+	UPDATE dbo.Proveedor_Sucursal
+	Set NombreSucursal=@valor3
+	where Proveedor='LabFam'
+end
+exec PS 'Sucursal Santiago'
+
+create procedure DP2
+(@valor4 money)
+as
+begin
+	UPDATE dbo.Detalle_Producto
+	set PTotal=@valor4
+	where tipo='analgesico'
+end
+exec DP2 30.00
+
+create function f1(@valor1 int, @valor2 int)
+returns int
+as
+begin
+	return @valor1*@valor2
+end
+select dbo.f1(5, 20)
+
+create trigger t1
+on dbo.Producto
+after update
+as
+begin
+	select *
+	from inserted
+	select *
+	from deleted
+end
+
+select * from producto
+update producto set precio=75.00
+where nombre='advil'
+
+create trigger t2 on producto
+instead of update
+as
+begin
+update producto
+set precio = 23.00 where precio=20.00
+end 
+update producto 
+set precio = 24.00 where precio=20.00
+select * from Producto
