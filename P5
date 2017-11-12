@@ -1,0 +1,47 @@
+use farmacia 
+
+
+
+select Inventario.Cantidad_Almacen
+from Inventario
+group by Inventario.Cantidad_Almacen 
+order by Inventario.Cantidad_Almacen asc
+
+
+
+select count (Producto.Precio) as 'Cantidad de precios', Max(Producto.Precio) as 'Precio maximo', Sum (Producto.Precio) as 'Total de valores', avg (Producto.Precio) as '.' 
+from Producto
+group by Producto.Precio
+
+select count (Inventario.Cantidad_Almacen) as 'Cantidad en almacen', Max(Inventario.Cantidad_Almacen) as 'Cantidad Maxima', Sum (Inventario.Cantidad_Almacen) as 'Cantidad Total'
+from Inventario
+group by Inventario.Cantidad_Almacen
+
+
+
+select count (Producto.Precio) as 'Cantidad de precios', Max(Producto.Precio) as 'Precio maximo', Sum (Producto.Precio) as 'Total de valores'
+from Producto
+where Nombre = 'Next'
+
+select count (Producto.Precio) as 'Cantidad de precios', Max(Producto.Precio) as 'Precio maximo', Sum (Producto.Precio) as 'Total de valores'
+from Producto
+where Precio > '50.00'
+
+
+select count (Inventario.Cantidad_Almacen) as 'Cantidad en almacen', Max(Inventario.Cantidad_Almacen) as 'Cantidad Maxima', Sum (Inventario.Cantidad_Almacen) as 'Cantidad Total'
+from Inventario
+group by Inventario.Cantidad_Almacen
+Having Min (Inventario.Cantidad_Almacen) <56
+
+select count (Inventario.Cantidad_Almacen) as 'Cantidad en almacen', Max(Inventario.Cantidad_Almacen) as 'Cantidad Maxima', Sum (Inventario.Cantidad_Almacen) as 'Cantidad Total'
+from Inventario
+group by Inventario.Cantidad_Almacen
+Having  count (Inventario.Cantidad_Almacen) <70
+
+SELECT TOP	2 * 
+from Sucursal
+Order by Sucursal.Nombre_Sucursal desc
+
+SELECT TOP	4 * 
+from inventario
+Order by Inventario.Cantidad_Almacen asc
